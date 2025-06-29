@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
 import { useState, useRef, useEffect } from 'react';
+import { scale, verticalScale, isWeb, getResponsiveValue } from '../utils/responsive';
 
 export default function Flashcard({ question, answer, isFlipped, onFlip }) {
     const flipAnim = useRef(new Animated.Value(0)).current;
@@ -64,9 +65,13 @@ const styles = StyleSheet.create({
     cardContainer: {
         position: 'relative',
         width: '100%',
-        height: 200,
+        height: getResponsiveValue({ 
+            small: verticalScale(160), 
+            medium: verticalScale(200), 
+            large: verticalScale(240) 
+        }),
         alignSelf: 'center',
-        marginVertical: 20,
+        marginVertical: getResponsiveValue({ small: verticalScale(12), medium: verticalScale(20), large: verticalScale(24) }),
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -77,9 +82,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        padding: 20,
-        borderRadius: 12,
+        padding: getResponsiveValue({ small: scale(16), medium: scale(20), large: scale(24) }),
+        borderRadius: getResponsiveValue({ small: scale(10), medium: scale(12), large: scale(16) }),
         backfaceVisibility: 'hidden',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: getResponsiveValue({ small: 2, medium: 3, large: 4 }),
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: getResponsiveValue({ small: 4, medium: 6, large: 8 }),
+        elevation: getResponsiveValue({ small: 3, medium: 5, large: 7 }),
     },
     cardAnswerContainer: {
         position: 'absolute',
@@ -88,16 +101,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        padding: 20,
-        borderRadius: 12,
+        padding: getResponsiveValue({ small: scale(16), medium: scale(20), large: scale(24) }),
+        borderRadius: getResponsiveValue({ small: scale(10), medium: scale(12), large: scale(16) }),
         backfaceVisibility: 'hidden',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: getResponsiveValue({ small: 2, medium: 3, large: 4 }),
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: getResponsiveValue({ small: 4, medium: 6, large: 8 }),
+        elevation: getResponsiveValue({ small: 3, medium: 5, large: 7 }),
     },
     cardText: {
         color: '#000',
-        fontSize: 18,
+        fontSize: getResponsiveValue({ small: scale(14), medium: scale(18), large: scale(20) }),
         fontWeight: '600',
         textAlign: 'center',
-        lineHeight: 28,
+        lineHeight: getResponsiveValue({ small: scale(20), medium: scale(28), large: scale(32) }),
     },
     cardBack: {
         transform: [{ rotateY: '180deg' }]

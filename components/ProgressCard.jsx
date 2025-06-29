@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { scale, verticalScale, getResponsiveValue } from '../utils/responsive';
 
 export default function ProgressCard({ xp = 0, level = 1 }) {
     const xpToNextLevel = level * 100;
@@ -28,22 +29,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        padding: 16,
+        padding: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        borderRadius: 12,
-        marginHorizontal: 16,
-        marginVertical: 8,
+        borderRadius: getResponsiveValue({ small: scale(10), medium: scale(12), large: scale(16) }),
+        marginHorizontal: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
+        marginVertical: getResponsiveValue({ small: verticalScale(6), medium: verticalScale(8), large: verticalScale(10) }),
     },
     hexagonContainer: {
-        width: 80,
-        height: 80,
+        width: getResponsiveValue({ small: scale(60), medium: scale(80), large: scale(90) }),
+        height: getResponsiveValue({ small: scale(60), medium: scale(80), large: scale(90) }),
         justifyContent: 'center',
         alignItems: 'center',
     },
     hexagon: {
-        width: 55,
-        height: 55,
-        borderWidth: 2,
+        width: getResponsiveValue({ small: scale(40), medium: scale(55), large: scale(65) }),
+        height: getResponsiveValue({ small: scale(40), medium: scale(55), large: scale(65) }),
+        borderWidth: getResponsiveValue({ small: 1.5, medium: 2, large: 2.5 }),
         borderColor: '#fff',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         flexDirection: 'row',
@@ -53,44 +54,44 @@ const styles = StyleSheet.create({
     },
     levelNumberText: {
         color: '#fff',
-        fontSize: 24,
+        fontSize: getResponsiveValue({ small: scale(18), medium: scale(24), large: scale(28) }),
         fontWeight: 'bold',
         transform: [{ rotate: '-45deg' }],
     },
     xpContainer: {
         justifyContent: 'center',
-        gap: 8,
+        gap: getResponsiveValue({ small: scale(6), medium: scale(8), large: scale(10) }),
         flexDirection: 'column',
-        height: 100,
-        width: 190,
+        height: getResponsiveValue({ small: verticalScale(80), medium: verticalScale(100), large: verticalScale(110) }),
+        width: getResponsiveValue({ small: scale(140), medium: scale(190), large: scale(220) }),
     },
     xpText: {
         color: '#fff',
-        fontSize: 14,
+        fontSize: getResponsiveValue({ small: scale(12), medium: scale(14), large: scale(16) }),
         opacity: 0.8,
-        padding: 4,
+        padding: getResponsiveValue({ small: scale(3), medium: scale(4), large: scale(5) }),
     },
     xpBar: {
         borderWidth: 1,
         borderColor: '#fff',
         width: '100%',
-        height: 18,
+        height: getResponsiveValue({ small: verticalScale(14), medium: verticalScale(18), large: verticalScale(20) }),
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-        borderRadius: 6,
+        borderRadius: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
         overflow: 'hidden',
     },
     xpBarFill: {
         height: '100%',
         backgroundColor: '#F28C82',
-        borderRadius: 6,
+        borderRadius: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
     },
     toNextLevelContainer: {
-        padding: 6,
+        padding: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
         alignItems: 'flex-end',
     },
     toNextLevelText: {
         color: '#fff',
-        fontSize: 12,
+        fontSize: getResponsiveValue({ small: scale(10), medium: scale(12), large: scale(14) }),
         opacity: 0.8,
     },
 });

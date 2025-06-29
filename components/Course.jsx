@@ -1,12 +1,23 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { scale, verticalScale, isWeb, screenWidth, getResponsiveValue } from '../utils/responsive';
 
 export default function Course({ course }) {
     const navigation = useNavigation();
 
+    // Responsive width calculation
+    const getCourseWidth = () => {
+        if (isWeb) {
+            if (screenWidth > 1200) return '22%'; // 4 columns
+            if (screenWidth > 768) return '30%';  // 3 columns
+            return '45%'; // 2 columns
+        }
+        return '45%'; // Mobile 2 columns
+    };
+
     return (
         <TouchableOpacity 
-            style={styles.container}
+            style={[styles.container, { width: getCourseWidth() }]}
             onPress={() => navigation.navigate('CoursePage')}
         >
             <Image source={course.image} style={styles.image} />
@@ -20,33 +31,46 @@ export default function Course({ course }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: '45%',
-        height: 195,
-        marginTop: 12,
-        marginBottom: 12,
-        borderRadius: 16,
+        height: getResponsiveValue({ 
+            small: verticalScale(160), 
+            medium: verticalScale(195), 
+            large: verticalScale(220) 
+        }),
+        marginTop: getResponsiveValue({ small: scale(8), medium: scale(12), large: scale(16) }),
+        marginBottom: getResponsiveValue({ small: scale(8), medium: scale(12), large: scale(16) }),
+        marginHorizontal: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
+        borderRadius: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: getResponsiveValue({ small: 2, medium: 3, large: 4 }),
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: getResponsiveValue({ small: 4, medium: 6, large: 8 }),
+        elevation: getResponsiveValue({ small: 3, medium: 5, large: 7 }),
     },
     titleContainer: {
-        padding: 6,
+        padding: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
     },
     title: {
-        height: 40,
+        height: getResponsiveValue({ small: verticalScale(32), medium: verticalScale(40), large: verticalScale(48) }),
         color: '#000',
-        fontSize: 14,
+        fontSize: getResponsiveValue({ small: scale(12), medium: scale(14), large: scale(16) }),
         fontWeight: 'bold',
+        lineHeight: getResponsiveValue({ small: scale(16), medium: scale(18), large: scale(20) }),
     },
     code: {
-        height: 20,
+        height: getResponsiveValue({ small: verticalScale(16), medium: verticalScale(20), large: verticalScale(24) }),
         color: 'black',
-        fontSize: 12,
-        fontWeight: 'semi-bold',
-        marginVertical: 4,
+        fontSize: getResponsiveValue({ small: scale(10), medium: scale(12), large: scale(14) }),
+        fontWeight: '600',
+        marginVertical: getResponsiveValue({ small: scale(2), medium: scale(4), large: scale(6) }),
     },
     image: {
         width: '100%',
-        height: 120,
-        borderRadius: 16,
+        height: getResponsiveValue({ small: verticalScale(90), medium: verticalScale(120), large: verticalScale(140) }),
+        borderRadius: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         resizeMode: 'stretch',

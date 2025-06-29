@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useState, useRef, useEffect } from 'react';
 import { module1Questions } from '../../data/moduleQuestions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { scale, verticalScale, isWeb, screenWidth, getResponsiveValue } from '../../utils/responsive';
+import WebLayout from '../WebLayout';
 
 export default function StudyPage() {
     const navigation = useNavigation();
@@ -138,14 +140,14 @@ export default function StudyPage() {
         });
     };
 
-    return (
+    const content = (
         <LinearGradient
             colors={['#667eea', '#764ba2']}
             style={styles.container}
         >
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color="#fff" />
+                    <Ionicons name="arrow-back" size={getResponsiveValue({ small: scale(20), medium: scale(24), large: scale(28) })} color="#fff" />
                 </TouchableOpacity>
                 <View style={styles.courseNameContainer}>
                     <Text style={styles.moduleText}>Module 1</Text>
@@ -210,81 +212,87 @@ export default function StudyPage() {
                 </Animated.View>
             )}
         </LinearGradient>
-    )
+    );
+
+    return (
+        <WebLayout maxWidth={800}>
+            {content}
+        </WebLayout>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        padding: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
     },
     headerContainer: {
-        paddingHorizontal: 16,
+        paddingHorizontal: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: 40,
-        paddingBottom: 16,
+        paddingTop: getResponsiveValue({ small: verticalScale(32), medium: verticalScale(40), large: verticalScale(48) }),
+        paddingBottom: getResponsiveValue({ small: verticalScale(12), medium: verticalScale(16), large: verticalScale(20) }),
         position: 'relative',
     },
     backButton: {
-        padding: 8,
+        padding: getResponsiveValue({ small: scale(6), medium: scale(8), large: scale(10) }),
         position: 'absolute',
-        left: 16,
+        left: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
         zIndex: 1,
     },
     courseNameContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft: 32,
+        paddingLeft: getResponsiveValue({ small: scale(24), medium: scale(32), large: scale(40) }),
     },
     moduleText: {
         color: '#fff',
-        fontSize: 24,
+        fontSize: getResponsiveValue({ small: scale(20), medium: scale(24), large: scale(28) }),
         fontWeight: 'bold',
-        marginBottom: 8,
+        marginBottom: getResponsiveValue({ small: scale(6), medium: scale(8), large: scale(10) }),
         textAlign: 'center',
     },
     titleText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: getResponsiveValue({ small: scale(16), medium: scale(18), large: scale(20) }),
         fontWeight: '600',
         textAlign: 'center',
     },
     spacer: {
-        width: 40, // Same width as back button for balance
+        width: getResponsiveValue({ small: scale(32), medium: scale(40), large: scale(48) }),
     },
     progressContainer: {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        margin: 12,
-        padding: 2,
-        borderRadius: 16,
+        margin: getResponsiveValue({ small: scale(8), medium: scale(12), large: scale(16) }),
+        padding: getResponsiveValue({ small: scale(2), medium: scale(2), large: scale(2) }),
+        borderRadius: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
     },
     flashcardContainer: {
-        height: 280,
+        height: getResponsiveValue({ small: verticalScale(220), medium: verticalScale(280), large: verticalScale(320) }),
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 8,
-        padding: 20,
+        marginVertical: getResponsiveValue({ small: verticalScale(6), medium: verticalScale(8), large: verticalScale(10) }),
+        padding: getResponsiveValue({ small: scale(16), medium: scale(20), large: scale(24) }),
     },
     progressTextContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20,
+        padding: getResponsiveValue({ small: scale(16), medium: scale(20), large: scale(24) }),
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20,
+        padding: getResponsiveValue({ small: scale(16), medium: scale(20), large: scale(24) }),
     },
     progressText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: getResponsiveValue({ small: scale(16), medium: scale(18), large: scale(20) }),
         fontWeight: 'regular',
     },
     streakText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: getResponsiveValue({ small: scale(16), medium: scale(18), large: scale(20) }),
         fontWeight: 'regular',
     },
     xpAnimationContainer: {
@@ -298,7 +306,7 @@ const styles = StyleSheet.create({
     },
     xpAnimationText: {
         color: '#fff',
-        fontSize: 24,
+        fontSize: getResponsiveValue({ small: scale(20), medium: scale(24), large: scale(28) }),
         fontWeight: 'bold',
     },
 });
