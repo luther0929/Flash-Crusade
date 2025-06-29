@@ -26,7 +26,7 @@ export default function ProgressCard({ xp = 0, level = 1 }) {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
         flexDirection: 'row',
         padding: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),

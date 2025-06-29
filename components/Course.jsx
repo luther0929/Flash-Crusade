@@ -8,11 +8,11 @@ export default function Course({ course }) {
     // Responsive width calculation
     const getCourseWidth = () => {
         if (isWeb) {
-            if (screenWidth > 1200) return '22%'; // 4 columns
-            if (screenWidth > 768) return '30%';  // 3 columns
-            return '45%'; // 2 columns
+            if (screenWidth > 1200) return '20%'; // 4 columns - reduced from 22%
+            if (screenWidth > 768) return '28%';  // 3 columns - reduced from 30%
+            return '42%'; // 2 columns - reduced from 45%
         }
-        return '45%'; // Mobile 2 columns
+        return '42%'; // Mobile 2 columns - reduced from 45%
     };
 
     return (
