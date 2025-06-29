@@ -19,9 +19,6 @@ export default function StudyPage() {
     const [isFlipped, setIsFlipped] = useState(false);
     const [xp, setXp] = useState(0);
     const [level, setLevel] = useState(1);
-    const [showXpAnimation, setShowXpAnimation] = useState(false);
-    const xpAnim = useRef(new Animated.Value(0)).current;
-    const xpTextAnim = useRef(new Animated.Value(0)).current;
 
     const currentQuestion = module1Questions[currentQuestionIndex];
     const progress = currentQuestionIndex + 1;
@@ -79,29 +76,6 @@ export default function StudyPage() {
             // Save the new XP
             saveUserProgress(newXp, level);
         }
-
-        // Show XP animation
-        setShowXpAnimation(true);
-        Animated.sequence([
-            Animated.timing(xpAnim, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(xpTextAnim, {
-                toValue: 1,
-                duration: 200,
-                useNativeDriver: true,
-            }),
-            Animated.timing(xpTextAnim, {
-                toValue: 0,
-                duration: 200,
-                useNativeDriver: true,
-            }),
-        ]).start(() => {
-            setShowXpAnimation(false);
-            xpAnim.setValue(0);
-        });
     };
 
     const handleAnswer = (isCorrect) => {
@@ -176,41 +150,6 @@ export default function StudyPage() {
                     <Button icon="checkmark-outline" onPress={() => handleAnswer(true)} color="#A8D5BA" />
                 </View>
             </View>
-
-            {/* XP Animation */}
-            {showXpAnimation && (
-                <Animated.View 
-                    style={[
-                        styles.xpAnimationContainer,
-                        {
-                            opacity: xpAnim,
-                            transform: [{
-                                translateY: xpAnim.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: [0, -50],
-                                })
-                            }]
-                        }
-                    ]}
-                >
-                    <Animated.Text 
-                        style={[
-                            styles.xpAnimationText,
-                            {
-                                opacity: xpTextAnim,
-                                transform: [{
-                                    scale: xpTextAnim.interpolate({
-                                        inputRange: [0, 1],
-                                        outputRange: [0.5, 1.2],
-                                    })
-                                }]
-                            }
-                        ]}
-                    >
-                        +50 XP!
-                    </Animated.Text>
-                </Animated.View>
-            )}
         </LinearGradient>
     );
 
@@ -269,11 +208,11 @@ const styles = StyleSheet.create({
         borderRadius: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
     },
     flashcardContainer: {
-        height: getResponsiveValue({ small: verticalScale(220), medium: verticalScale(280), large: verticalScale(320) }),
+        height: getResponsiveValue({ small: verticalScale(280), medium: verticalScale(320), large: verticalScale(360) }),
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: getResponsiveValue({ small: verticalScale(6), medium: verticalScale(8), large: verticalScale(10) }),
-        padding: getResponsiveValue({ small: scale(16), medium: scale(20), large: scale(24) }),
+        marginVertical: getResponsiveValue({ small: verticalScale(8), medium: verticalScale(12), large: verticalScale(16) }),
+        padding: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
     },
     progressTextContainer: {
         flexDirection: 'row',
@@ -294,19 +233,5 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: getResponsiveValue({ small: scale(16), medium: scale(18), large: scale(20) }),
         fontWeight: 'regular',
-    },
-    xpAnimationContainer: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    xpAnimationText: {
-        color: '#fff',
-        fontSize: getResponsiveValue({ small: scale(20), medium: scale(24), large: scale(28) }),
-        fontWeight: 'bold',
     },
 });
