@@ -41,14 +41,6 @@ const styles = StyleSheet.create({
         marginHorizontal: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
         borderRadius: getResponsiveValue({ small: scale(12), medium: scale(16), large: scale(20) }),
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: getResponsiveValue({ small: 2, medium: 3, large: 4 }),
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: getResponsiveValue({ small: 4, medium: 6, large: 8 }),
-        elevation: getResponsiveValue({ small: 3, medium: 5, large: 7 }),
     },
     titleContainer: {
         padding: getResponsiveValue({ small: scale(4), medium: scale(6), large: scale(8) }),
